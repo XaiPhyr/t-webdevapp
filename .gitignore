@@ -1,2 +1,2 @@
-db_password.txt
 secrets/backend/.env
+secrets/db/password.txt
