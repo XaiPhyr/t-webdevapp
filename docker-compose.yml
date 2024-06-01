@@ -3,15 +3,35 @@ services:
     container_name: app_db
     restart: always
     image: postgres:latest
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
     ports:
       - "5431:5432"
     environment:
       POSTGRES_USER: rdev
-      POSTGRES_PASSWORD: /run/secrets/db_password
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_DB: backoffice_db
     secrets:
       - db_password
 
+  # frontend:
+
+  backend:
+    container_name: app_backend
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    ports:
+      - "8200:8200"
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile.dev
+      args:
+        HTTP_PORT: 8200
+    env_file:
+      - ./secrets/backend/.env
+
 secrets:
   db_password:
-    file: db_password.txt
+    file: ./secrets/db/password.txt

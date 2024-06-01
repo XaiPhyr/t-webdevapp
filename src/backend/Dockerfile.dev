@@ -1,0 +1,7 @@
+FROM golang:latest
+
+RUN apt update & apt upgrade
+WORKDIR /app/src/backend
+COPY . .
+
+EXPOSE ${HTTP_PORT}
