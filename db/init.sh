@@ -1,12 +1,15 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 #
 # $POSTGRES_PASSWORD
 #
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-	CREATE USER rdev;
-	CREATE DATABASE backoffice_db;
+echo -e "\n"
+echo -e "start of migration...\n"
+
+psql -a -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$POSTGRES_DB" <<-EOSQL
 	GRANT ALL PRIVILEGES ON DATABASE backoffice_db TO rdev;
 EOSQL
+
+echo -e "end of migration..."

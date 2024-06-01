@@ -5,3 +5,5 @@ WORKDIR /app/src/backend
 COPY . .
 
 EXPOSE ${HTTP_PORT}
+
+CMD go run .

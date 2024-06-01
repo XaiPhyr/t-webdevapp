@@ -1,3 +1,4 @@
+-- +migrate Up
 CREATE TABLE IF NOT EXISTS users (
   id bigserial not null,
   username varchar(45) default null,
@@ -18,15 +19,5 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE UNIQUE INDEX username_unique_idx ON users (username);
 CREATE UNIQUE INDEX email_unique_idx ON users (email);
 
-CREATE FUNCTION users_last_login()
-RETURNS TRIGGER AS $$
-BEGIN
-  PERFORM pg_notify('last_login', NEW.last_login::text);
-  RETURN NULL;
-END;
-$$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER users_last_login
-AFTER UPDATE ON users
-FOR EACH ROW EXECUTE PROCEDURE users_last_login();
+-- +migrate Down
+DROP TABLE IF EXISTS users;
