@@ -1,0 +1,17 @@
+services:
+  db:
+    container_name: app_db
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: rdev
+      POSTGRES_PASSWORD: /run/secrets/db_password
+      POSTGRES_DB: backoffice_db
+    secrets:
+      - db_password
+
+secrets:
+  db_password:
+    file: db_password.txt
