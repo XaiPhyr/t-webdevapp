@@ -1,2 +1,3 @@
 secrets/backend/.env
 secrets/db/password.txt
+secrets/db/.env

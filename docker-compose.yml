@@ -7,12 +7,8 @@ services:
       - ./db:/docker-entrypoint-initdb.d
     ports:
       - "5431:5432"
-    environment:
-      POSTGRES_USER: rdev
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
-      POSTGRES_DB: backoffice_db
-    secrets:
-      - db_password
+    env_file:
+      - ./secrets/db/.env
 
   # frontend:
 
@@ -32,6 +28,3 @@ services:
     env_file:
       - ./secrets/backend/.env
 
-secrets:
-  db_password:
-    file: ./secrets/db/password.txt

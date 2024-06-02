@@ -22,15 +22,6 @@ func MigrateSQL() {
 		log.Printf("Error: %s", err)
 	}
 
-	mi, err := migrations.FindMigrations()
-	if err != nil {
-		log.Printf("Error: %s", err)
-	}
-
-	fmt.Println()
-	fmt.Println("MIGRATIONS: ", mi)
-	fmt.Println()
-
 	n, err := migrate.Exec(db, "postgres", migrations, migrate.Up)
 	if err != nil {
 		log.Printf("Error: %s", err)
