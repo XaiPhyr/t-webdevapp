@@ -6,4 +6,4 @@ COPY . .
 
 EXPOSE ${HTTP_PORT}
 
-CMD go run .
+CMD go mod tidy && go run .

@@ -25,6 +25,10 @@ services:
       dockerfile: Dockerfile.dev
       args:
         HTTP_PORT: 8200
+    develop:
+      watch:
+        - path: ./src/backend
+          action: rebuild
     env_file:
       - ./secrets/backend/.env
 
