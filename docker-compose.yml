@@ -1,7 +1,7 @@
 services:
   db:
     container_name: app_db
-    restart: always
+    # restart: always
     image: postgres:latest
     volumes:
       - ./db:/docker-entrypoint-initdb.d
@@ -31,4 +31,12 @@ services:
           action: rebuild
     env_file:
       - ./secrets/backend/.env
+
+  mail:
+    container_name: app_mail
+    image: mailhog/mailhog:latest
+    # restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
