@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	c "t_webdevapp/controllers"
 	"t_webdevapp/models"
 
@@ -22,14 +23,14 @@ var (
 )
 
 func NewRoutes() chi.Router {
-	api := utils.InitConfig()
+	api := os.Getenv("ENDPOINT")
 
 	r := chi.NewRouter()
 	mw.UseMiddlewares(r)
 
 	var mux = models.MuxServer{
 		Mux:      r,
-		Endpoint: api.Server.Endpoint,
+		Endpoint: api,
 	}
 
 	// @routes

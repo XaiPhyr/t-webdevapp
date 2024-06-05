@@ -6,22 +6,20 @@ import (
 	"net/http"
 	"os"
 	"t_webdevapp/routers"
-	"t_webdevapp/utils"
 
 	"github.com/go-chi/chi"
 )
 
 var version = os.Getenv("VERSION")
 var port = os.Getenv("HTTP_PORT")
+var src = os.Getenv("FRONTENDSRC")
 
 func main() {
 	r := routers.NewRoutes()
-	cfg := utils.InitConfig()
 
 	log.SetFlags(log.Llongfile | log.LstdFlags)
 
-	src := cfg.Frontend.Source
-	_, err := os.Stat(src + "/index.html")
+	_, err := os.Stat(fmt.Sprintf("%s/index.html", src))
 
 	if !os.IsNotExist(err) {
 		FileServer(r, src)

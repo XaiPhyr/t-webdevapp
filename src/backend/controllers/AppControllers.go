@@ -3,18 +3,14 @@ package controllers
 import (
 	"encoding/json"
 	"net/http"
-	"os"
 	"t_webdevapp/middlewares"
 	"t_webdevapp/models"
 )
 
 type AppController struct {
-	endpoint  string
 	mw        middlewares.Middleware
 	userModel *models.Users
 }
-
-var endpoint = os.Getenv("ENDPOINT")
 
 func (a AppController) toJson(w http.ResponseWriter, b interface{}) {
 	jsonMarshal, _ := json.MarshalIndent(b, "", "  ")

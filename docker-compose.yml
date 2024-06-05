@@ -6,7 +6,7 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d
     ports:
-      - "5431:5432"
+      - "5430:5432"
     env_file:
       - ./secrets/db/.env
 

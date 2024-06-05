@@ -3,9 +3,8 @@ package services
 import (
 	"log"
 	"net/http"
+	"os"
 	"time"
-
-	u "t_webdevapp/utils"
 
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
@@ -27,8 +26,7 @@ var (
 )
 
 func GenerateJWT() (string, error) {
-	app := u.InitConfig()
-	jwtKey := app.Server.JwtKey
+	jwtKey := os.Getenv("JWTKEY")
 
 	claims := registerToken(JwtExpiration)
 
@@ -44,8 +42,7 @@ func GenerateJWT() (string, error) {
 }
 
 func VerifyJWT(token string, w http.ResponseWriter) (err error) {
-	app := u.InitConfig()
-	jwtKey := app.Server.JwtKey
+	jwtKey := os.Getenv("JWTKEY")
 
 	keyFunc := func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtKey), nil
