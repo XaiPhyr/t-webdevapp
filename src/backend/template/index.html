@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Login</title>
+  </head>
+
+  <style>
+    body {
+      font-family: 'Roboto Mono';
+    }
+
+    label {
+      margin-right: 0.25rem;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      padding-block: 0.5rem;
+    }
+
+    .justify-end {
+      justify-content: end;
+    }
+
+    @media screen and (max-width: 1080px) {
+    }
+  </style>
+  <script>
+    async function onWebSocket(data) {
+      const socket = new WebSocket('ws://localhost:8200/ws');
+
+      socket.onopen = () => {
+        socket.send(data);
+      };
+
+      socket.onmessage = ({ data }) => {
+        console.log('ON MESSAGE: ', data);
+      };
+    }
+    async function onLogin() {
+      const { fetch } = window;
+      const docUsername = document.querySelector('#id_username');
+      const docPassword = document.querySelector('#id_password');
+      const { value: username } = docUsername;
+      const { value: password } = docPassword;
+
+      const Authentication = JSON.stringify({
+        username,
+        password,
+      });
+
+      const headers = {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authentication,
+        },
+      };
+
+      const response = await fetch('/api/login', headers);
+      const json = await response.json();
+
+      console.log(json);
+
+      if (json) {
+        onWebSocket(Authentication);
+      }
+    }
+  </script>
+  <body>
+    <div class="center">
+      <form action="">
+        <div class="row">
+          <label for="">Username</label>
+          <input
+            type="text"
+            name="name_username"
+            id="id_username"
+            value="rdev"
+          />
+        </div>
+        <div class="row">
+          <label for="">Password</label>
+          <input
+            type="password"
+            name="name_password"
+            id="id_password"
+            value="iamsuperadmin"
+          />
+        </div>
+        <div class="row">
+          <input type="button" value="Submit" onclick="onLogin()" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      .font-italic {
+        font-style: italic;
+      }
+
+      .container {
+        width: 100%;
+        text-align: justify;
+      }
+
+      @media (min-device-width: 414px) {
+        .container {
+          width: 25%;
+          text-align: center;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <title>Welcome</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Welcome to Our Community!</h1>
+
+      <h3>{{ .User }}</h3>
+
+      <p>
+        We are thrilled to welcome you to our community! Thank you for choosing
+        to join us. We believe that you will find our platform to be an engaging
+        and supportive space that offers a wealth of opportunities.
+      </p>
+
+      <p>
+        Your registration is now complete, and you can begin exploring all the
+        features and resources available to you. Whether you are here to connect
+        with like-minded individuals, access exclusive content, or expand your
+        network, we are here to support you every step of the way.
+      </p>
+
+      <p>
+        Feel free to reach out to our support team if you have any questions or
+        need assistance navigating the platform. We are committed to ensuring
+        that your experience with us is seamless and enjoyable.
+      </p>
+
+      <p class="font-italic">
+        Once again, welcome to the community. We are excited to have you on
+        board!
+      </p>
+
+      <div class="">Best regards,</div>
+      <div class="">The [Community Name] Team</div>
+    </div>
+  </body>
+</html>

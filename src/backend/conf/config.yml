@@ -1,0 +1,29 @@
+version: '1.0.0'
+env: 'dev'
+
+server:
+  endpoint: '/api'
+  jwt_key: 't_webdevapp'
+
+database:
+  host: 'localhost'
+  user: 'postgres'
+  pass: 'postgres'
+  port: '5432'
+  db: 'backoffice_db'
+  sslmode: 'disable'
+
+frontend:
+  src: './template'
+
+# smtp:
+#   host: 'smtp.gmail.com'
+#   port: 587
+#   user: 'arcadia.initiative@gmail.com'
+#   pass: 'dlaahrfhhxozlrbi'
+
+smtp:
+  host: 127.0.0.1
+  port: 1025
+  user: ''
+  pass: ''

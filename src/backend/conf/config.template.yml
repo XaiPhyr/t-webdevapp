@@ -1,0 +1,23 @@
+# version: "1.0.0"
+env: 'dev'
+
+server:
+  endpoint: '/api'
+  jwt_key: ''
+
+database:
+  host: ''
+  user: ''
+  pass: ''
+  port: ''
+  db: ''
+  sslmode: ''
+
+frontend:
+  src: ''
+
+smtp:
+  host: ''
+  port: ''
+  user: ''
+  pass: ''

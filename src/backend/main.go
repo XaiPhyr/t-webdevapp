@@ -5,49 +5,43 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
-
-	sql "app_backend/sql"
+	"t_webdevapp/routers"
+	"t_webdevapp/utils"
 
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
-	"github.com/go-chi/httprate"
-
-	_ "github.com/lib/pq"
 )
 
-var endpoint = os.Getenv("ENDPOINT")
-var version = os.Getenv("VERSION")
-var url = func(api string) string {
-	return endpoint + api
-}
-
 func main() {
-	port := os.Getenv("HTTP_PORT")
+	r := routers.NewRoutes()
+	cfg := utils.InitConfig()
+
 	log.SetFlags(log.Llongfile | log.LstdFlags)
-	sql.MigrateSQL()
 
-	r := chi.NewRouter()
-	r.Use(middleware.RequestID)
-	r.Use(middleware.RealIP)
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
-	r.Use(middleware.GetHead)
-	r.Use(httprate.LimitByIP(100, 1*time.Minute))
+	src := cfg.Frontend.Source
+	_, err := os.Stat(src + "/index.html")
 
-	r.Get(fmt.Sprintf("%s/", endpoint), func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("WELCOME!"))
-	})
-
-	r.Route(url("/hello"), func(r chi.Router) {
-		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("HELLO WORLD"))
-		})
-	})
+	if !os.IsNotExist(err) {
+		FileServer(r, src)
+	}
 
 	fmt.Println()
-	log.Printf("-> Version: %s", version)
 	log.Printf("-> Local:   http://localhost:8200")
+	log.Printf("-> Version: %s", cfg.Env)
+	fmt.Println()
 
-	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
+	log.Printf("%s", http.ListenAndServe(":8200", r))
+}
+
+func FileServer(r chi.Router, src string) {
+	fs := http.FileServer(http.Dir(src))
+	r.Handle("/", http.StripPrefix("/", fs))
+
+	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := os.Stat(src + r.RequestURI); os.IsNotExist(err) {
+			http.StripPrefix(r.RequestURI, fs).ServeHTTP(w, r)
+			return
+		}
+
+		fs.ServeHTTP(w, r)
+	})
 }

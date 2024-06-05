@@ -1,8 +1,8 @@
-# Docker boilerplate App Development
+# Tutorial Web Development
 
 uses [SQL Migrate](https://github.com/rubenv/sql-migrate)
 
 ### Secrets
 password is stored in `secrets` folder  
-to initialize password, rename template.db_password.txt  
-to `db_password.txt` and store your password
+to initialize password, rename template.env  
+to `.env` and store your password
