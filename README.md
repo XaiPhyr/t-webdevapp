@@ -6,3 +6,6 @@ uses [SQL Migrate](https://github.com/rubenv/sql-migrate)
 password is stored in `secrets` folder  
 to initialize password, rename template.env  
 to `.env` and store your password
+
+### Docker
+- run command `docker compose up --watch` for windows

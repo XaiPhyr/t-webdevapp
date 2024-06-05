@@ -7,6 +7,8 @@ import (
 	"os"
 	"t_webdevapp/routers"
 
+	sql "t_webdevapp/sql"
+
 	"github.com/go-chi/chi"
 )
 
@@ -15,6 +17,7 @@ var port = os.Getenv("HTTP_PORT")
 var src = os.Getenv("FRONTENDSRC")
 
 func main() {
+	sql.MigrateSQL()
 	r := routers.NewRoutes()
 
 	log.SetFlags(log.Llongfile | log.LstdFlags)

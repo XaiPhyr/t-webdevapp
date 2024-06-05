@@ -70,16 +70,15 @@ func ListenNotify() {
 	}()
 }
 
-func Mailer(subject, body string) {
+func Mailer(to, subject, body string) {
 	m := gomail.NewMessage(gomail.SetCharset("UTF-8"))
-	m.SetHeader("From", "noreply-rdev@local")
-	m.SetHeader("To", "arcadia.initiative+t_webdevapp@gmail.com")
+
+	m.SetHeader("From", "noreply-webdevapp@local")
+	m.SetHeader("To", to)
 	m.SetHeader("Subject", subject)
 	m.SetBody("text/html", body)
 	m.AddAlternative("text/html", body)
 	// m.Attach("")
-
-	fmt.Println(smtphost, smtpport, smtpuser, smtppass)
 
 	d := gomail.NewDialer(smtphost, smtpport, smtpuser, smtppass)
 

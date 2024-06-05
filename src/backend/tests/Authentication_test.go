@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"strings"
 	"testing"
 
@@ -22,14 +21,12 @@ var (
 )
 
 func InitAuthenticationTest(req *http.Request) *httptest.ResponseRecorder {
-	os.Setenv("APP_ENVIRONMENT", "test")
-
 	a := &c.Authentication{}
 	r := chi.NewRouter()
 
 	var mux = models.MuxServer{
 		Mux:      r,
-		Endpoint: "/api",
+		Endpoint: "/api/v1",
 	}
 
 	a.InitAuthentication(mux)
@@ -68,7 +65,7 @@ func TestAuthenticationRegister(t *testing.T) {
 
 	b, _ := json.Marshal(jsonBody)
 
-	req, _ := http.NewRequest("POST", "/api/register", strings.NewReader(string(b)))
+	req, _ := http.NewRequest("POST", "/api/v1/register", strings.NewReader(string(b)))
 	res := InitAuthenticationTest(req)
 
 	require.Equal(t, http.StatusOK, res.Code)

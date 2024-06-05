@@ -66,7 +66,7 @@
         },
       };
 
-      const response = await fetch('/api/login', headers);
+      const response = await fetch('/api/v1/login', headers);
       const json = await response.json();
 
       console.log(json);
@@ -74,6 +74,33 @@
       if (json) {
         onWebSocket(Authentication);
       }
+    }
+    async function onRegister() {
+      const { fetch } = window;
+      const docUsername = document.querySelector('#id_reg_username');
+      const docPassword = document.querySelector('#id_reg_password');
+      const docEmail = document.querySelector('#id_email');
+      const { value: username } = docUsername;
+      const { value: password } = docPassword;
+      const { value: email } = docEmail;
+
+      const body = JSON.stringify({
+        username,
+        password,
+        email,
+        user_type: 'superadmin',
+      });
+
+      const headers = {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body,
+      };
+
+      const response = await fetch('/api/v1/register', headers);
+      const json = await response.json();
     }
   </script>
   <body>
@@ -99,6 +126,41 @@
         </div>
         <div class="row">
           <input type="button" value="Submit" onclick="onLogin()" />
+        </div>
+      </form>
+    </div>
+
+    <div class="center">
+      <form action="">
+        <div class="row">
+          <label for="">Username</label>
+          <input
+            type="text"
+            name="name_reg_username"
+            id="id_reg_username"
+            value="rdev"
+          />
+        </div>
+        <div class="row">
+          <label for="">Password</label>
+          <input
+            type="password"
+            name="name_reg_password"
+            id="id_reg_password"
+            value="iamsuperadmin"
+          />
+        </div>
+        <div class="row">
+          <label for="">Email</label>
+          <input
+            type="text"
+            name="name_email"
+            id="id_email"
+            value="rdev@local"
+          />
+        </div>
+        <div class="row">
+          <input type="button" value="Submit" onclick="onRegister()" />
         </div>
       </form>
     </div>

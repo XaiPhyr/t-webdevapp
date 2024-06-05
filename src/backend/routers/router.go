@@ -23,14 +23,14 @@ var (
 )
 
 func NewRoutes() chi.Router {
-	api := os.Getenv("ENDPOINT")
+	endpoint := os.Getenv("ENDPOINT")
 
 	r := chi.NewRouter()
 	mw.UseMiddlewares(r)
 
 	var mux = models.MuxServer{
 		Mux:      r,
-		Endpoint: api,
+		Endpoint: endpoint,
 	}
 
 	// @routes

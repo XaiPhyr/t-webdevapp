@@ -1,0 +1,13 @@
+{
+  "name": "t_webdevapp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "frontend for tutorial on webdevapp",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xaiphyr",
+  "license": "ISC"
+}

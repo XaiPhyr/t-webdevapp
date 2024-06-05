@@ -1,9 +1,11 @@
 FROM golang:latest
 
 RUN apt update & apt upgrade
-WORKDIR /app/src/backend
+WORKDIR /app/src/
 COPY . .
 
 EXPOSE ${HTTP_PORT}
 
-CMD go mod tidy && go run .
+CMD cd backend && \
+    go mod tidy &&\
+    go run .

@@ -1,4 +1,5 @@
 secrets/backend/.env
-secrets/db/password.txt
 secrets/db/.env
 src/backend/conf/config.yml
+src/frontend/node_modules/*
+src/frontend/package-lock.json

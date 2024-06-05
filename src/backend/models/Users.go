@@ -7,6 +7,8 @@ import (
 	"reflect"
 	"time"
 
+	utils "t_webdevapp/utils"
+
 	"github.com/google/uuid"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -78,6 +80,11 @@ func (u *Users) CreateUser(w http.ResponseWriter, data *Users, fn func(w http.Re
 	if err != nil {
 		u.HandleUserError(w, err, fn)
 		return nil, err
+	}
+
+	file := "../template/emails/welcome.html"
+	if content, err := utils.ParseHTML(file, data); err == nil {
+		utils.Mailer(data.Email, "Welcome!", content)
 	}
 
 	return result, nil

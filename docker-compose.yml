@@ -22,13 +22,13 @@ services:
     ports:
       - "8200:8200"
     build:
-      context: ./src/backend
+      context: ./src
       dockerfile: Dockerfile.dev
       args:
         HTTP_PORT: 8200
     develop:
       watch:
-        - path: ./src/backend
+        - path: ./src
           action: rebuild
     env_file:
       - ./secrets/backend/.env
