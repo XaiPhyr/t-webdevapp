@@ -11,6 +11,9 @@ import (
 	"github.com/go-chi/chi"
 )
 
+var version = os.Getenv("VERSION")
+var port = os.Getenv("HTTP_PORT")
+
 func main() {
 	r := routers.NewRoutes()
 	cfg := utils.InitConfig()
@@ -25,11 +28,11 @@ func main() {
 	}
 
 	fmt.Println()
-	log.Printf("-> Local:   http://localhost:8200")
-	log.Printf("-> Version: %s", cfg.Env)
+	log.Printf("-> Local:   http://localhost:%s", port)
+	log.Printf("-> Version: %s", version)
 	fmt.Println()
 
-	log.Printf("%s", http.ListenAndServe(":8200", r))
+	http.ListenAndServe(fmt.Sprintf(":%s", port), r)
 }
 
 func FileServer(r chi.Router, src string) {
