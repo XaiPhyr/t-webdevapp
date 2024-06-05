@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "donjayamanne.githistory",
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    "golang.go",
+    "compulim.indent4to2",
+    "oderwat.indent-rainbow",
+    "xabikos.javascriptsnippets",
+    "esbenp.prettier-vscode",
+    "christian-kohler.path-intellisense",
+    "standard.vscode-standard",
+    "vscode-icons-team.vscode-icons",
+    "aaron-bond.better-comments"
+  ]
+}
