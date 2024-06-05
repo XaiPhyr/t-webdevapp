@@ -82,10 +82,12 @@ func (u *Users) CreateUser(w http.ResponseWriter, data *Users, fn func(w http.Re
 		return nil, err
 	}
 
-	file := "../template/emails/welcome.html"
-	if content, err := utils.ParseHTML(file, data); err == nil {
-		utils.Mailer(data.Email, "Welcome!", content)
-	}
+	// file := "../template/emails/welcome.html"
+	// if content, err := utils.ParseHTML(file, data); err == nil {
+	// 	utils.Mailer(data.Email, "Welcome!", content)
+	// }
+
+	utils.Mailer(data.Email, "Welcome!", "WELCOME EMAIL")
 
 	return result, nil
 }
