@@ -6,6 +6,7 @@ COPY . .
 
 EXPOSE ${HTTP_PORT}
 
-CMD cd backend && \
-    go mod tidy &&\
-    go run .
+WORKDIR /app/src/backend
+RUN go mod tidy
+
+CMD go run .

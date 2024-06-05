@@ -3,14 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Import this line to every html file -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>WEBDEVAPP (FRONTEND)</title>
+    <title>Login</title>
   </head>
+
+  <style>
+    body {
+      font-family: 'Roboto Mono';
+    }
+  </style>
+
+  <script>
+    async function onLogin() {
+      const { fetch } = window;
+      const docUsername = document.querySelector('#id_username');
+      const docPassword = document.querySelector('#id_password');
+      const { value: username } = docUsername;
+      const { value: password } = docPassword;
+
+      const Authentication = JSON.stringify({
+        username,
+        password,
+      });
+
+      const headers = {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authentication,
+        },
+      };
+
+      const response = await fetch('/api/v1/login', headers);
+      const json = await response.json();
+
+      console.log(json);
+    }
+    async function onRegister() {
+      const { fetch } = window;
+      const docUsername = document.querySelector('#id_reg_username');
+      const docPassword = document.querySelector('#id_reg_password');
+      const docEmail = document.querySelector('#id_reg_email');
+      const { value: username } = docUsername;
+      const { value: password } = docPassword;
+      const { value: email } = docEmail;
+
+      const body = JSON.stringify({
+        username,
+        password,
+        email,
+        user_type: 'superadmin',
+      });
+
+      const headers = {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        body,
+      };
+
+      const response = await fetch('/api/v1/register', headers);
+      const json = await response.json();
+
+      console.log(json);
+    }
+  </script>
   <body>
-    <h1 class="text-3xl font-bold underline">CONNECTED...</h1>
-    <a href="/hello-world">Hello world</a>
+    <div class="p-5">
+      <div class="mb-2">
+        <a
+          href="/hello-world"
+          class="cursor-pointer text-sky-500 px-2 py-1"
+        >
+          Hello World
+        </a>
+      </div>
+
+      <div class="border p-5 mb-5">
+        <form action="">
+          <label for="">Login</label>
+          <div class="row">
+            <label for="">Username</label>
+            <input
+              class="border rounded px-2 py-1 m-2"
+              type="text"
+              name="name_username"
+              id="id_username"
+              value="rdev"
+            />
+          </div>
+          <div class="row">
+            <label for="">Password</label>
+            <input
+              autocomplete="current-password"
+              class="border rounded px-2 py-1 m-2"
+              type="password"
+              name="name_password"
+              id="id_password"
+              value="iamsuperadmin"
+            />
+          </div>
+          <div class="row">
+            <input
+              class="cursor-pointer text-white px-2 py-1 rounded bg-indigo-500"
+              type="button"
+              value="Submit"
+              onclick="onLogin()"
+            />
+          </div>
+        </form>
+      </div>
+
+      <div class="border p-5">
+        <form action="">
+          <label for="">Register</label>
+          <div class="row">
+            <label for="">Username</label>
+            <input
+              class="border rounded px-2 py-1 m-2"
+              type="text"
+              name="name_reg_username"
+              id="id_reg_username"
+              value="rdev"
+            />
+          </div>
+          <div class="row">
+            <label for="">Password</label>
+            <input
+              autocomplete="current-password"
+              class="border rounded px-2 py-1 m-2"
+              type="password"
+              name="name_reg_password"
+              id="id_reg_password"
+              value="iamsuperadmin"
+            />
+          </div>
+          <div class="row">
+            <label for="">Email</label>
+            <input
+              class="border rounded px-2 py-1 m-2"
+              type="email"
+              name="name_reg_email"
+              id="id_reg_email"
+              value="rdev@local"
+            />
+          </div>
+          <div class="row">
+            <input
+              class="cursor-pointer text-white px-2 py-1 rounded bg-indigo-500"
+              type="button"
+              value="Submit"
+              onclick="onRegister()"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
